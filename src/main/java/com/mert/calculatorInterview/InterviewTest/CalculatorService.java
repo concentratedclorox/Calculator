@@ -8,19 +8,18 @@ import java.util.List;
 
 public class CalculatorService {
 
-	Calculator calc;
-	Reader read;
-	LinkedList<String> commandList = new LinkedList<>();
+	private Calculator calc;
+	private LinkedList<String> commandList = new LinkedList<>();
 
 	public CalculatorService(String path) throws IOException, URISyntaxException {
-		commandList = Reader.read(Paths.get(this.getClass().getClassLoader().getResource(path).toURI()));
+		this.commandList = Reader.read(Paths.get(this.getClass().getClassLoader().getResource(path).toURI()));
 		if (operationValidityCheck(commandList)) {
-			calc = new Calculator(commandList);
+			this.calc = new Calculator(commandList);
 		}
 	}
 
 	public int getResult() {
-		return calc.getMainResult();
+		return this.calc.getMainResult();
 	}
 
 	private boolean operationValidityCheck(LinkedList<String> commandList) {
